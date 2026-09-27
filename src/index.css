@@ -1,0 +1,625 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gt-navy: #001D5B;
+    --gt-navy-deep: #00092B;
+    --gt-red: #E30000;
+    --gt-red-dark: #BC0000;
+    --gt-green: #61CE70;
+    --gt-onyx: #0A0F1D;
+    --gt-slate: #5B6472;
+    --gt-steel: #7A7A7A;
+    --gt-bg: #F8FAFC;
+    --gt-surface: #FFFFFF;
+    --gt-border: #E2E8F0;
+    --gt-border-strong: #CBD5E1;
+    --ease-terrain: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--gt-onyx);
+    background-color: var(--gt-bg);
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    margin: 0;
+  }
+
+  .font-mono-tech {
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ==========================================================================
+   PLAN 1 : GRILLE TECHNIQUE SIGNATURE (ARCHITECTURAL BLUEPRINT)
+   ========================================================================== */
+.gt-technical-grid {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(0, 29, 91, 0.065) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 29, 91, 0.065) 1px, transparent 1px);
+}
+
+.gt-technical-grid-dark {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+/* ==========================================================================
+   HERO SÉQUENCE D'ENTRÉE STAGGERÉE (ORDRE STRICT 1 → 8)
+   1. background / grille
+   2. eyebrow
+   3. headline
+   4. paragraphe
+   5. CTA
+   6. métadonnées
+   7. photographie principale (reveal / mask)
+   8. cadre graphique (apparaît légèrement après la photographie)
+   ========================================================================== */
+@keyframes gtFadeAtmosphere {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gtFadeGrid {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gtSlideUpSubtle {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes gtPhotoMaskReveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 15% 0 round 12px);
+    transform: translate3d(0, 14px, 0) scale(1.015);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0 round 12px);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes gtFrameReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(6px, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-seq-1-atmosphere {
+  animation: gtFadeAtmosphere 600ms var(--ease-terrain) 15ms both;
+}
+.hero-seq-2-grid {
+  animation: gtFadeGrid 520ms var(--ease-terrain) 55ms both;
+}
+.hero-seq-3-eyebrow {
+  animation: gtSlideUpSubtle 500ms var(--ease-terrain) 110ms both;
+}
+.hero-seq-4-headline-1 {
+  animation: gtSlideUpSubtle 540ms var(--ease-terrain) 160ms both;
+}
+.hero-seq-4-headline-2 {
+  animation: gtSlideUpSubtle 540ms var(--ease-terrain) 215ms both;
+}
+.hero-seq-5-paragraph {
+  animation: gtSlideUpSubtle 540ms var(--ease-terrain) 270ms both;
+}
+.hero-seq-6-cta {
+  animation: gtSlideUpSubtle 520ms var(--ease-terrain) 325ms both;
+}
+.hero-seq-7-meta {
+  animation: gtSlideUpSubtle 520ms var(--ease-terrain) 380ms both;
+}
+.hero-seq-8-photo {
+  animation: gtPhotoMaskReveal 680ms var(--ease-terrain) 250ms both;
+}
+.hero-seq-9-frame {
+  animation: gtFrameReveal 600ms var(--ease-terrain) 410ms both;
+}
+
+/* ==========================================================================
+   BANDE « NOS PARTENAIRES » — MARQUEE DROITE → GAUCHE CONTINU (CSS-FIRST)
+   ========================================================================== */
+@keyframes gtMarqueeRightToLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.gt-partners-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: gtMarqueeRightToLeft 105s linear infinite;
+}
+
+@media (max-width: 767px) {
+  .gt-partners-track {
+    animation-duration: 125s;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gt-partners-viewport:hover .gt-partners-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ==========================================================================
+   ANIMATION MOTION DESIGN À CHAQUE SÉLECTION DE CATALOGUE
+   ========================================================================== */
+@keyframes gtCatalogueCardEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.96);
+    clip-path: inset(0 0 12% 0 round 12px);
+  }
+  65% {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0 round 12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    clip-path: inset(0 0 0% 0 round 12px);
+  }
+}
+
+@keyframes gtCatalogueSweepLine {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 1;
+  }
+  70% {
+    transform: scaleX(1);
+    transform-origin: left center;
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: right center;
+    opacity: 0.25;
+  }
+}
+
+@keyframes gtCatalogueBannerPulse {
+  0% {
+    opacity: 0;
+    transform: translate3d(-10px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.gt-catalogue-motion-card {
+  animation: gtCatalogueCardEnter 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--card-idx, 0) * 75ms);
+}
+
+.gt-catalogue-motion-sweep {
+  animation: gtCatalogueSweepLine 780ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--card-idx, 0) * 75ms + 80ms);
+}
+
+.gt-catalogue-status-anim {
+  animation: gtCatalogueBannerPulse 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ==========================================================================
+   VARIÉTÉ DES REVEALS AU SCROLL (PASS 02 : PROGRESSION PAR TYPE DE CONTENU)
+   1. .gt-reveal / .gt-reveal-block : Fade + Translate éditorial
+   2. .gt-reveal-mask : Masque rideau sur photographies avec léger dézoom interne
+   3. .gt-reveal-clip : Ouverture architecturale clip-path (Application / Cartes)
+   4. .gt-draw-line & .gt-method-line : Ligne qui se dessine (Navy → Rouge)
+   5. .gt-stagger-item : Cascade séquentielle pilotée par --stagger-idx
+   ========================================================================== */
+.gt-reveal,
+.gt-reveal-block {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 640ms var(--ease-terrain),
+    transform 640ms var(--ease-terrain);
+}
+
+.gt-reveal.is-visible,
+.gt-reveal-block.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Reveal par masque photographique + léger mouvement interne */
+.gt-reveal-mask {
+  opacity: 0;
+  clip-path: inset(0 0 18% 0 round 12px);
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 720ms var(--ease-terrain),
+    clip-path 780ms var(--ease-terrain),
+    transform 780ms var(--ease-terrain);
+}
+
+.gt-reveal-mask.is-visible {
+  opacity: 1;
+  clip-path: inset(0 0 0% 0 round 12px);
+  transform: translate3d(0, 0, 0);
+}
+
+.gt-reveal-mask img {
+  transform: scale(1.07);
+  transition: transform 1100ms var(--ease-terrain);
+}
+
+.gt-reveal-mask.is-visible img {
+  transform: scale(1.01);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gt-reveal-mask.is-visible:hover img {
+    transform: scale(1.045);
+  }
+}
+
+/* Reveal clip-path produit (Section Application & Carte) */
+.gt-reveal-clip {
+  opacity: 0;
+  clip-path: polygon(0 0, 94% 0, 94% 92%, 0 92%);
+  transform: translate3d(0, 20px, 0);
+  transition:
+    opacity 680ms var(--ease-terrain),
+    clip-path 740ms var(--ease-terrain),
+    transform 740ms var(--ease-terrain);
+}
+
+.gt-reveal-clip.is-visible {
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Ligne qui se dessine (Méthode Navy → Rouge & séparateurs) */
+.gt-draw-line {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 850ms var(--ease-terrain) 120ms;
+}
+
+.gt-draw-line.is-visible {
+  transform: scaleX(1);
+}
+
+.gt-method-line {
+  background: linear-gradient(90deg, #001D5B 0%, #001D5B 45%, #E30000 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1050ms var(--ease-terrain) 180ms;
+}
+
+.gt-method-line.is-visible {
+  transform: scaleX(1);
+}
+
+/* Stagger séquentiel des cartes et étapes */
+.gt-stagger-item {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 580ms var(--ease-terrain),
+    transform 580ms var(--ease-terrain),
+    border-color 200ms var(--ease-terrain),
+    box-shadow 200ms var(--ease-terrain);
+  transition-delay: calc(var(--stagger-idx, 0) * 95ms);
+}
+
+.gt-stagger-item.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Halo Port-Gentil (Carte Afrique Centrale) */
+@keyframes gtPortGentilPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.3;
+  }
+}
+
+.gt-port-gentil-halo {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: gtPortGentilPulse 3.2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   SECTION ÉQUIPE : TRIPTYQUE SECONDARY → PRIMARY (FONDATEUR ROUGE) → SECONDARY
+   ========================================================================== */
+.gt-team-left {
+  opacity: 0;
+  transform: translate3d(-28px, 18px, 0);
+  transition:
+    opacity 660ms var(--ease-terrain) 60ms,
+    transform 660ms var(--ease-terrain) 60ms,
+    box-shadow 240ms var(--ease-terrain),
+    border-color 240ms var(--ease-terrain);
+}
+
+.gt-team-center {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0) scale(0.955);
+  transition:
+    opacity 740ms var(--ease-terrain) 170ms,
+    transform 740ms var(--ease-terrain) 170ms,
+    box-shadow 260ms var(--ease-terrain);
+}
+
+.gt-team-right {
+  opacity: 0;
+  transform: translate3d(28px, 18px, 0);
+  transition:
+    opacity 660ms var(--ease-terrain) 280ms,
+    transform 660ms var(--ease-terrain) 280ms,
+    box-shadow 240ms var(--ease-terrain),
+    border-color 240ms var(--ease-terrain);
+}
+
+.gt-team-left.is-visible,
+.gt-team-right.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.gt-team-center.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Accent rouge du Fondateur qui se déploie après l'entrée de la carte centrale */
+.gt-team-center .gt-founder-accent-bar {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 680ms var(--ease-terrain) 420ms;
+}
+
+.gt-team-center.is-visible .gt-founder-accent-bar {
+  transform: scaleX(1);
+}
+
+/* Stagger interne des infos de carte équipe */
+.gt-team-info-stagger {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity 520ms var(--ease-terrain) 380ms,
+    transform 520ms var(--ease-terrain) 380ms;
+}
+
+.gt-team-left.is-visible .gt-team-info-stagger,
+.gt-team-center.is-visible .gt-team-info-stagger,
+.gt-team-right.is-visible .gt-team-info-stagger {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Interaction Hover Desktop du Triptyque :
+   Les cartes secondaires reculent/descendent légèrement quand le triptyque est survolé,
+   tandis que la carte centrale conserve sa dominance. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .gt-team-triptych:hover .gt-team-left.is-visible,
+  .gt-team-triptych:hover .gt-team-right.is-visible {
+    transform: translate3d(0, 5px, 0) scale(0.988);
+  }
+
+  .gt-team-triptych .gt-team-left.is-visible:hover,
+  .gt-team-triptych .gt-team-right.is-visible:hover {
+    transform: translate3d(0, -3px, 0) scale(1);
+  }
+
+  .gt-team-triptych:hover .gt-team-center.is-visible {
+    transform: translate3d(0, -4px, 0) scale(1.015);
+  }
+}
+
+/* Micro-interactions CTA & Cartes (<= 200ms) */
+.gt-btn-primary {
+  transition:
+    background-color 170ms var(--ease-terrain),
+    transform 170ms var(--ease-terrain),
+    box-shadow 170ms var(--ease-terrain);
+}
+.gt-btn-primary:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 10px 22px -5px rgba(0, 29, 91, 0.28);
+}
+.gt-btn-primary:active {
+  transform: translate3d(0, 0, 0);
+}
+
+.gt-btn-red {
+  transition:
+    background-color 170ms var(--ease-terrain),
+    transform 170ms var(--ease-terrain),
+    box-shadow 170ms var(--ease-terrain);
+}
+.gt-btn-red:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 10px 22px -5px rgba(227, 0, 0, 0.35);
+}
+
+.gt-btn-secondary {
+  transition:
+    background-color 170ms var(--ease-terrain),
+    border-color 170ms var(--ease-terrain),
+    color 170ms var(--ease-terrain),
+    transform 170ms var(--ease-terrain);
+}
+.gt-btn-secondary:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+.gt-arrow-shift {
+  transition: transform 180ms var(--ease-terrain);
+}
+.group:hover .gt-arrow-shift,
+button:hover .gt-arrow-shift,
+a:hover .gt-arrow-shift {
+  transform: translate3d(4px, 0, 0);
+}
+
+.gt-card-interactive {
+  transition:
+    transform 200ms var(--ease-terrain),
+    border-color 200ms var(--ease-terrain),
+    box-shadow 200ms var(--ease-terrain);
+}
+@media (hover: hover) and (pointer: fine) {
+  .gt-card-interactive:hover {
+    transform: translate3d(0, -4px, 0);
+    border-color: #001D5B;
+    box-shadow: 0 14px 30px -8px rgba(0, 29, 91, 0.14);
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITÉ : PREFERS-REDUCED-MOTION (ET MODE STATIQUE FORCÉ)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-seq-1-atmosphere,
+  .hero-seq-2-grid,
+  .hero-seq-3-eyebrow,
+  .hero-seq-4-headline-1,
+  .hero-seq-4-headline-2,
+  .hero-seq-5-paragraph,
+  .hero-seq-6-cta,
+  .hero-seq-7-meta,
+  .hero-seq-8-photo,
+  .hero-seq-9-frame,
+  .gt-reveal,
+  .gt-reveal-block,
+  .gt-reveal-mask,
+  .gt-reveal-clip,
+  .gt-draw-line,
+  .gt-method-line,
+  .gt-stagger-item,
+  .gt-catalogue-motion-card,
+  .gt-catalogue-motion-sweep,
+  .gt-catalogue-status-anim,
+  .gt-team-left,
+  .gt-team-center,
+  .gt-team-right,
+  .gt-team-info-stagger {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .gt-port-gentil-halo {
+    animation: none !important;
+  }
+
+  .gt-partners-track {
+    animation: none !important;
+    transform: none !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+
+html.force-reduced-motion *,
+html.force-reduced-motion *::before,
+html.force-reduced-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0ms !important;
+}
+
+html.force-reduced-motion .hero-seq-1-atmosphere,
+html.force-reduced-motion .hero-seq-2-grid,
+html.force-reduced-motion .hero-seq-3-eyebrow,
+html.force-reduced-motion .hero-seq-4-headline-1,
+html.force-reduced-motion .hero-seq-4-headline-2,
+html.force-reduced-motion .hero-seq-5-paragraph,
+html.force-reduced-motion .hero-seq-6-cta,
+html.force-reduced-motion .hero-seq-7-meta,
+html.force-reduced-motion .hero-seq-8-photo,
+html.force-reduced-motion .hero-seq-9-frame,
+html.force-reduced-motion .gt-reveal,
+html.force-reduced-motion .gt-reveal-block,
+html.force-reduced-motion .gt-reveal-mask,
+html.force-reduced-motion .gt-reveal-clip,
+html.force-reduced-motion .gt-draw-line,
+html.force-reduced-motion .gt-method-line,
+html.force-reduced-motion .gt-stagger-item,
+html.force-reduced-motion .gt-team-left,
+html.force-reduced-motion .gt-team-center,
+html.force-reduced-motion .gt-team-right,
+html.force-reduced-motion .gt-team-info-stagger {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
+html.force-reduced-motion .gt-partners-track {
+  animation: none !important;
+  transform: none !important;
+  width: 100% !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+

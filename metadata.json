@@ -1,0 +1,6 @@
+{
+  "name": "Gabon Training — Formation Industrielle & QHSE CEMAC",
+  "description": "Centre de référence en formation professionnelle, sécurité industrielle QHSE, pétrole & gaz, génie électrique et management opérationnel au Gabon et en zone CEMAC.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
